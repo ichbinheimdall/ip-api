@@ -241,7 +241,7 @@ ip-api/
 │   ├── workflows/        # GitHub Actions (CI/CD)
 │   └── dependabot.yml    # Automated dependency updates
 ├── .editorconfig         # Editor configuration
-├── .eslintrc.json        # ESLint configuration
+├── eslint.config.js      # ESLint configuration
 ├── jsconfig.json         # JavaScript project configuration
 ├── openapi.yaml          # OpenAPI 3.1 specification
 ├── package.json          # Project configuration
