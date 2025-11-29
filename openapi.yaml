@@ -1,0 +1,208 @@
+openapi: 3.1.0
+info:
+  title: IP API
+  description: |
+    A lightning-fast, privacy-focused IP geolocation API.
+
+    Returns the client's public IP address and country code in JSON format.
+    No API keys required. No logging. No tracking.
+
+    ## Features
+    - 🚀 Sub-100ms response times via Vercel's edge network
+    - 🔒 Privacy-first design with no data storage
+    - 🌐 Global coverage for accurate geolocation
+    - 📦 Zero configuration required
+    - 🆓 100% free and open source
+
+    ## Rate Limits
+    No rate limits are currently enforced. Please be respectful of the service.
+
+  version: 1.0.0
+  contact:
+    name: HMD Developments, Inc.
+    url: https://hmddevs.org
+    email: contact@hmddevs.org
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  x-logo:
+    url: https://hmddevs.org/logo.png
+    altText: HMD Developments Logo
+
+servers:
+  - url: https://ip.hmddevs.org
+    description: Production server
+
+paths:
+  /:
+    get:
+      summary: Get IP and Country
+      description: Returns the client's public IP address and country code
+      operationId: getIPInfo
+      tags:
+        - IP Geolocation
+      responses:
+        '200':
+          description: Successful response
+          headers:
+            X-API-Version:
+              description: API version
+              schema:
+                type: string
+                example: '1.0.0'
+            X-Response-Time:
+              description: Response time in milliseconds
+              schema:
+                type: string
+                example: '5ms'
+            Cache-Control:
+              description: Cache control directives
+              schema:
+                type: string
+                example: 'public, max-age=60, s-maxage=60'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IPResponse'
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    ip: '8.8.8.8'
+                    country: 'US'
+                unknown:
+                  summary: Unknown country
+                  value:
+                    ip: '192.168.1.1'
+                    country: null
+        '400':
+          description: Bad request - IP detection failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                error:
+                  code: 'IP_DETECTION_FAILED'
+                  message: 'Unable to determine client IP address'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                error:
+                  code: 'METHOD_NOT_ALLOWED'
+                  message: 'Only GET, HEAD, and OPTIONS methods are supported'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                error:
+                  code: 'INTERNAL_ERROR'
+                  message: 'An unexpected error occurred'
+
+    head:
+      summary: Check API availability
+      description: Returns headers only, useful for health checks
+      operationId: checkHealth
+      tags:
+        - Health
+      responses:
+        '200':
+          description: API is available
+
+    options:
+      summary: CORS preflight
+      description: Returns CORS headers for preflight requests
+      operationId: corsOptions
+      tags:
+        - CORS
+      responses:
+        '204':
+          description: CORS preflight successful
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: 'GET, HEAD, OPTIONS'
+            Access-Control-Max-Age:
+              schema:
+                type: string
+                example: '86400'
+
+components:
+  schemas:
+    IPResponse:
+      type: object
+      required:
+        - ip
+        - country
+      properties:
+        ip:
+          type: string
+          description: The client's public IP address (IPv4 or IPv6)
+          examples:
+            - '8.8.8.8'
+            - '2001:4860:4860::8888'
+        country:
+          type: string
+          nullable: true
+          description: |
+            ISO 3166-1 alpha-2 country code.
+            Returns null for private/reserved IP addresses or when country cannot be determined.
+          examples:
+            - 'US'
+            - 'DE'
+            - 'JP'
+            - null
+
+    ErrorResponse:
+      type: object
+      required:
+        - success
+        - error
+      properties:
+        success:
+          type: boolean
+          description: Always false for error responses
+          const: false
+        error:
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code
+              enum:
+                - METHOD_NOT_ALLOWED
+                - IP_DETECTION_FAILED
+                - INTERNAL_ERROR
+            message:
+              type: string
+              description: Human-readable error message
+
+tags:
+  - name: IP Geolocation
+    description: IP address and geolocation operations
+  - name: Health
+    description: Health check endpoints
+  - name: CORS
+    description: Cross-Origin Resource Sharing
+
+externalDocs:
+  description: GitHub Repository
+  url: https://github.com/ichbinheimdall/ip-api

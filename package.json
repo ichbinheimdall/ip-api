@@ -1,0 +1,68 @@
+{
+  "name": "@hmddevs/ip-api",
+  "version": "1.0.0",
+  "description": "A lightning-fast, privacy-focused IP geolocation API. Returns client IP address and country code in JSON format.",
+  "main": "api/index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel",
+    "lint": "eslint api/ --ext .js",
+    "lint:fix": "eslint api/ --ext .js --fix",
+    "format": "prettier --write \"**/*.{js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,json,md}\"",
+    "test": "node --test test/",
+    "test:coverage": "node --test --experimental-test-coverage test/",
+    "validate": "npm run lint && npm run format:check",
+    "prepare": "echo 'Ready for development'"
+  },
+  "keywords": [
+    "ip",
+    "ip-address",
+    "geolocation",
+    "geo",
+    "geoip",
+    "api",
+    "rest-api",
+    "serverless",
+    "vercel",
+    "country",
+    "location",
+    "ipv4",
+    "ipv6",
+    "privacy"
+  ],
+  "author": "HMD Developments, Inc. <contact@hmddevs.org> (https://hmddevs.org)",
+  "license": "MIT",
+  "homepage": "https://ip.hmddevs.org",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ichbinheimdall/ip-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ichbinheimdall/ip-api/issues"
+  },
+  "dependencies": {
+    "geoip-lite": "^1.4.10"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "files": [
+    "api/",
+    "vercel.json",
+    "LICENSE",
+    "README.md"
+  ],
+  "private": false
+}

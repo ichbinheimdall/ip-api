@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/ichbinheimdall/ip-api/discussions
+    about: Ask questions or discuss ideas
+  - name: 📖 Documentation
+    url: https://github.com/ichbinheimdall/ip-api#readme
+    about: Check out the documentation
+  - name: 🔒 Security Issues
+    url: https://github.com/ichbinheimdall/ip-api/security/policy
+    about: Report security vulnerabilities privately
