@@ -39,7 +39,6 @@ jobs:
           node -e "require('./package.json')"
           node -e "require('./vercel.json')"
           node -e "require('./.eslintrc.json')"
-          node -e "require('./.prettierrc')"
 
   test:
     name: Test (Node ${{ matrix.node-version }})
