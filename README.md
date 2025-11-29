@@ -236,15 +236,12 @@ ip-api/
 │   └── index.js          # Main API handler
 ├── test/
 │   └── api.test.js       # Unit tests
-├── types/
-│   └── index.js          # JSDoc type definitions
 ├── .github/
 │   ├── ISSUE_TEMPLATE/   # Issue templates
 │   ├── workflows/        # GitHub Actions (CI/CD)
 │   └── dependabot.yml    # Automated dependency updates
 ├── .editorconfig         # Editor configuration
 ├── .eslintrc.json        # ESLint configuration
-├── .prettierrc           # Prettier configuration
 ├── jsconfig.json         # JavaScript project configuration
 ├── openapi.yaml          # OpenAPI 3.1 specification
 ├── package.json          # Project configuration
@@ -271,14 +268,8 @@ npm run lint
 # Fix linting issues
 npm run lint:fix
 
-# Format code
-npm run format
-
 # Run tests
 npm test
-
-# Run tests with coverage
-npm run test:coverage
 
 # Deploy to production
 npm run deploy

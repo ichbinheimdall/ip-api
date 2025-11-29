@@ -5,17 +5,10 @@
   "main": "api/index.js",
   "scripts": {
     "dev": "vercel dev",
-    "start": "vercel dev",
     "deploy": "vercel --prod",
-    "deploy:preview": "vercel",
     "lint": "eslint api/ --ext .js",
     "lint:fix": "eslint api/ --ext .js --fix",
-    "format": "prettier --write \"**/*.{js,json,md}\"",
-    "format:check": "prettier --check \"**/*.{js,json,md}\"",
-    "test": "node --test ./test/api.test.js",
-    "test:coverage": "node --test --experimental-test-coverage ./test/api.test.js",
-    "validate": "npm run lint && npm run format:check",
-    "prepare": "echo 'Ready for development'"
+    "test": "node --test ./test/api.test.js"
   },
   "keywords": [
     "ip",
@@ -47,8 +40,7 @@
     "geoip-lite": "^1.4.10"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "prettier": "^3.3.0"
+    "eslint": "^8.57.0"
   },
   "engines": {
     "node": ">=18.0.0"
