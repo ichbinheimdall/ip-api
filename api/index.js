@@ -38,11 +38,11 @@ const IP_HEADERS = [
   'x-forwarded-for',
   'x-real-ip',
   'x-client-ip',
-  'cf-connecting-ip',      // Cloudflare
-  'x-cluster-client-ip',   // Rackspace/Riverbed
+  'cf-connecting-ip', // Cloudflare
+  'x-cluster-client-ip', // Rackspace/Riverbed
   'x-forwarded',
   'forwarded-for',
-  'true-client-ip',        // Akamai/Cloudflare Enterprise
+  'true-client-ip', // Akamai/Cloudflare Enterprise
 ];
 
 /**
@@ -51,7 +51,9 @@ const IP_HEADERS = [
  * @returns {boolean} True if valid IP address
  */
 const isValidIP = (ip) => {
-  if (!ip || typeof ip !== 'string') return false;
+  if (!ip || typeof ip !== 'string') {
+    return false;
+  }
   return IP_PATTERNS.IPV4.test(ip) || IP_PATTERNS.IPV6.test(ip) || IP_PATTERNS.IPV6_MAPPED.test(ip);
 };
 
@@ -90,7 +92,9 @@ const getClientIP = (req) => {
  * @returns {string} The normalized IP address
  */
 const normalizeIP = (ip) => {
-  if (!ip) return null;
+  if (!ip) {
+    return null;
+  }
 
   // Handle IPv6-mapped IPv4 addresses (e.g., ::ffff:192.168.1.1)
   const mappedMatch = ip.match(IP_PATTERNS.IPV6_MAPPED);
@@ -104,39 +108,6 @@ const normalizeIP = (ip) => {
   }
 
   return ip;
-};
-
-/**
- * Determines the IP version
- * @param {string} ip - The IP address
- * @returns {number|null} 4 for IPv4, 6 for IPv6, null if invalid
- */
-const getIPVersion = (ip) => {
-  if (!ip) return null;
-  if (IP_PATTERNS.IPV4.test(ip)) return 4;
-  if (IP_PATTERNS.IPV6.test(ip) || IP_PATTERNS.IPV6_MAPPED.test(ip)) return 6;
-  return null;
-};
-
-/**
- * Checks if an IP is a private/reserved address
- * @param {string} ip - The IP address to check
- * @returns {boolean} True if private/reserved
- */
-const isPrivateIP = (ip) => {
-  if (!ip) return false;
-
-  // Private IPv4 ranges
-  const privateRanges = [
-    /^10\./,                          // 10.0.0.0/8
-    /^172\.(1[6-9]|2[0-9]|3[0-1])\./, // 172.16.0.0/12
-    /^192\.168\./,                    // 192.168.0.0/16
-    /^127\./,                         // 127.0.0.0/8 (loopback)
-    /^169\.254\./,                    // 169.254.0.0/16 (link-local)
-    /^0\./,                           // 0.0.0.0/8
-  ];
-
-  return privateRanges.some((range) => range.test(ip));
 };
 
 /**
