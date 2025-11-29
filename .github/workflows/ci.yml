@@ -40,7 +40,6 @@ jobs:
         run: |
           node -e "require('./package.json')"
           node -e "require('./vercel.json')"
-          node -e "require('./.eslintrc.json')"
 
   test:
     name: Test (Node ${{ matrix.node-version }})
@@ -66,11 +65,6 @@ jobs:
 
       - name: Run tests
         run: npm test
-
-      - name: Run tests with coverage
-        if: matrix.node-version == '20'
-        run: npm run test:coverage
-        continue-on-error: true
 
   security:
     name: Security Scan
